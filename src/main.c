@@ -15,23 +15,22 @@
 #endif
 
 #include <cr_section_macros.h>
+uint16_t sen[1024];
+uint16_t cuad[1024];
+uint16_t triang[1024];
 
-// TODO: insert other include files here
+void generarSenoidal(){
+	for(uint16_t i = 0; i < 1024;i++){
+		  sen[i] = 512 + (i * sin(2*M_PI*frecuencia/1024);
+	}
+}
 
-// TODO: insert other definitions and declarations here
+
+
 
 int main(void) {
 
-    // TODO: insert code here
 
-    // Force the counter to be placed into memory
-    volatile static int i = 0 ;
-    // Enter an infinite loop, just incrementing a counter
-    while(1) {
-        i++ ;
-        // "Dummy" NOP to allow source level single
-        // stepping of tight while() loop
-        __asm volatile ("nop");
-    }
+
     return 0 ;
 }
