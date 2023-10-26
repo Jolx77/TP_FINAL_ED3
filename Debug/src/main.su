@@ -1,4 +1,11 @@
-../src/main.c:24:6:generarSenoidal	32	static
-../src/main.c:30:6:generarCuadrada	16	static
-../src/main.c:39:6:generarTriangular	16	static
-../src/main.c:50:5:main	8	static
+C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\inc/core_cm3.h:928:22:NVIC_EnableIRQ	16	static
+../src/main.c:28:6:generarSenoidal	24	static
+../src/main.c:34:6:generarCuadrada	16	static
+../src/main.c:43:6:generarTriangular	16	static
+../src/main.c:52:6:configADC	8	static
+../src/main.c:61:6:configDAC	8	static
+../src/main.c:66:6:configTimer1	16	static
+../src/main.c:74:6:configTimer0	32	static
+../src/main.c:92:6:configDMA	96	static
+../src/main.c:125:6:calcFrec	4	static
+../src/main.c:131:5:main	16	static
