@@ -12,24 +12,45 @@
 
 #ifdef __USE_CMSIS
 #include "LPC17xx.h"
+#include "math.h"
 #endif
 
 #include <cr_section_macros.h>
 uint16_t sen[1024];
 uint16_t cuad[1024];
 uint16_t triang[1024];
+uint16_t frecuencia = 1000;
 
 void generarSenoidal(){
 	for(uint16_t i = 0; i < 1024;i++){
-		  sen[i] = 512 + (i * sin(2*M_PI*frecuencia/1024);
+		sen[i] = 512 + (i * sin(2*i*3.14159*frecuencia/1024));
+	}
+}
+
+void generarCuadrada(){
+	for(uint16_t i = 0; i<512;i++){
+		cuad[i]=1023;
+	}
+	for(uint16_t j = 512; j<1024;j++){
+		cuad[j]=0;
+	}
+}
+
+void generarTriangular(){
+	for(uint16_t i = 0;i<512;i++){
+		triang[i]=i;
+	}
+	for(uint16_t i = 0;i<512;i++){
+		triang[i]=512-i;
 	}
 }
 
 
 
-
 int main(void) {
-
+	generarTriangular();
+	generarCuadrada();
+	generarSenoidal();
 
 
     return 0 ;

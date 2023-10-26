@@ -41,7 +41,7 @@ main-build: TP_FINAL_ED3.axf
 TP_FINAL_ED3.axf: $(OBJS) $(USER_OBJS) makefile $(OPTIONAL_TOOL_DEPS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MCU Linker'
-	arm-none-eabi-gcc -nostdlib -L"C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug" -Xlinker -Map="TP_FINAL_ED3.map" -Xlinker --cref -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m3 -mthumb -T "TP_FINAL_ED3_Debug.ld" -o "TP_FINAL_ED3.axf" $(OBJS) $(USER_OBJS) $(LIBS) -lCMSISv2p00_LPC17xx
+	arm-none-eabi-gcc -nostdlib -L"C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug" -Xlinker -Map="TP_FINAL_ED3.map" -Xlinker --cref -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m3 -mthumb -T TP_FINAL_ED3_Debug.ld -o "TP_FINAL_ED3.axf" $(OBJS) $(USER_OBJS) $(LIBS) -lCMSISv2p00_LPC17xx
 	@echo 'Finished building target: $@'
 	@echo ' '
 
