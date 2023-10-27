@@ -1,66 +1,123 @@
-/*
- * Copyright 2022 NXP
- * NXP confidential.
- * This software is owned or controlled by NXP and may only be used strictly
- * in accordance with the applicable license terms.  By expressly accepting
- * such terms or by downloading, installing, activating and/or otherwise using
- * the software, you are agreeing that you have read, and that you agree to
- * comply with and are bound by, such license terms.  If you do not agree to
- * be bound by the applicable license terms, then you may not retain, install,
- * activate or otherwise use the software.
- */
-
-#ifdef __USE_CMSIS
 #include "LPC17xx.h"
-#include "lpc17xx_adc.h"
+#include "lpc17xx_pinsel.h"
+#include "lpc17xx_gpio.h"
 #include "lpc17xx_dac.h"
+#include "lpc17xx_adc.h"
 #include "lpc17xx_gpdma.h"
 #include "lpc17xx_timer.h"
 #include "lpc17xx_clkpwr.h"
-#endif
+#include <stdio.h>
+#include <math.h>
+uint32_t frecuencia = 10000;
+uint32_t sen[1024];
+uint32_t cuad[1024];
+uint32_t triang[1024];
+uint32_t samples;
 
-#include <cr_section_macros.h>
-uint16_t sen[1024];
-uint16_t cuad[1024];
-uint16_t triang[1024];
-uint16_t frecuencia = 1000;
+int t;
+
 
 void generarSenoidal(){
-	for(uint16_t i = 0; i < 1024;i++){
-		sen[i] = 512 + (i * sin(2*i*3.14159*frecuencia/1024));
+	for (int i = 0; i < samples; i++) {
+	    double t = (double)i / samples;
+	    uint32_t val = 512 + (512 * (sin(2.0 * 3.14159265358979323846 * t)));
+	    sen[i] = val << 6;
 	}
+
 }
 
 void generarCuadrada(){
-	for(uint16_t i = 0; i<512;i++){
-		cuad[i]=1023;
+	for(uint16_t i = 0; i<samples/2;i++){
+		cuad[i]=1023 << 6;
 	}
-	for(uint16_t j = 512; j<1024;j++){
-		cuad[j]=0;
+	for(uint16_t j = samples/2; j<samples;j++){
+		cuad[j]=0 << 6;
 	}
 }
 
 void generarTriangular(){
-	for(uint16_t i = 0;i<512;i++){
-		triang[i]=i;
+
+	for(uint16_t i = 0;i<samples/2;i++){
+		uint32_t val = (double)i / (samples/2 - 1) * 1024;
+		triang[i] = val << 6;
 	}
-	for(uint16_t i = 0;i<512;i++){
-		triang[i]=512-i;
+	uint16_t count = (samples/2)-1;
+	for(uint16_t j = (samples/2);j<samples;j++){
+		triang[j] = triang[count];
+		count--;
 	}
 }
 
-void configADC(){
-	ADC_Init(LPC_ADC,200000);
-	ADC_ChannelCmd(LPC_ADC,0,ENABLE);
-	ADC_BurstCmd(LPC_ADC,ENABLE);
-	ADC_StartCmd(LPC_ADC,0);
-	ADC_IntConfig(LPC_ADC,0,ENABLE);
-	NVIC_EnableIRQ(ADC_IRQn);
+void confPin(void){
+	//Configuración pin P0.26 como AOUT
+	PINSEL_CFG_Type pinsel_cfg;
+	pinsel_cfg.Portnum = 0;
+	pinsel_cfg.Pinnum = 26;
+	pinsel_cfg.Funcnum = 2;
+	pinsel_cfg.Pinmode = 0;
+	pinsel_cfg.OpenDrain = 0;
+	PINSEL_ConfigPin(&pinsel_cfg);
+	return;
 }
 
-void configDAC(){
-	DAC_Init(LPC_DAC);
-	DAC_SetDMATimeOut(LPC_DAC,(CLKPWR_GetPCLKSEL(CLKPWR_PCLKSEL_DAC)/(frecuencia*1024)));
+void confDAC(void){
+	DAC_CONVERTER_CFG_Type dacCfg;
+	dacCfg.CNT_ENA = SET;
+	dacCfg.DMA_ENA = SET;
+	t = (CLKPWR_GetPCLK(CLKPWR_PCLKSEL_DAC)/(frecuencia*samples));
+	DAC_Init (LPC_DAC);
+	DAC_SetDMATimeOut(LPC_DAC, t);
+	DAC_ConfigDAConverterControl(LPC_DAC, &dacCfg);
+}
+void delay(){
+	for (uint32_t i=0;i<400000;i++){}
+	return;
+}
+
+void configDMA(){
+
+	GPDMA_LLI_Type LLI2;
+	GPDMA_LLI_Type LLI3;
+	GPDMA_LLI_Type LLI1;
+
+	LLI1.SrcAddr = (uint32_t) sen;
+	LLI1.DstAddr = (uint32_t) &LPC_DAC->DACR;
+	LLI1.NextLLI = (uint32_t) &LLI1;
+	LLI1.Control = samples
+				   | (2<<18) //source width 32 bits
+				   | (2<<21) //dest width 32 bits
+				   | (1<<26); //source increment
+
+	LLI2.SrcAddr = (uint32_t) cuad;
+	LLI2.DstAddr = (uint32_t) &LPC_DAC->DACR;
+	LLI2.NextLLI = (uint32_t) &LLI2;
+	LLI2.Control = samples
+				   | (2<<18) //source width 32 bits
+				   | (2<<21) //dest width 32 bits
+				   | (1<<26); //source increment
+
+
+	LLI3.SrcAddr = (uint32_t) triang;
+	LLI3.DstAddr = (uint32_t) &LPC_DAC->DACR;
+	LLI3.NextLLI = (uint32_t) &LLI3;
+	LLI3.Control = samples
+				   | (2<<18) //source width 32 bits
+				   | (2<<21) //dest width 32 bits
+				   | (1<<26); //source increment
+
+	GPDMA_Init();
+
+	GPDMA_Channel_CFG_Type GPDMACfg;
+	GPDMACfg.ChannelNum = 0;
+	GPDMACfg.SrcMemAddr = (uint32_t)sen;
+	GPDMACfg.DstMemAddr = 0;
+	GPDMACfg.TransferSize = samples;
+	GPDMACfg.TransferWidth = 0;
+	GPDMACfg.TransferType = GPDMA_TRANSFERTYPE_M2P;
+	GPDMACfg.SrcConn = 0;
+	GPDMACfg.DstConn = GPDMA_CONN_DAC;
+	GPDMACfg.DMALLI = (uint32_t)&LLI1;
+	GPDMA_Setup(&GPDMACfg);
 }
 
 void configTimer1(){
@@ -70,6 +127,7 @@ void configTimer1(){
 	TIM_Init(LPC_TIM1,TIM_TIMER_MODE,&timcfg);
 	TIM_Cmd(LPC_TIM1,ENABLE);
 }
+
 
 void configTimer0(){
 	TIM_TIMERCFG_Type timcfg;
@@ -88,58 +146,28 @@ void configTimer0(){
 	NVIC_EnableIRQ(TIMER0_IRQn);
 }
 
-
-void configDMA(){
-	GPDMA_Init();
-	GPDMA_LLI_Type LLISen;
-	GPDMA_LLI_Type LLICuad;
-	GPDMA_LLI_Type LLITriang;
-	GPDMA_Channel_CFG_Type dmacfg;
-	dmacfg.ChannelNum = 0;
-	dmacfg.DstConn = GPDMA_CONN_DAC;
-	dmacfg.SrcConn = 0;
-	dmacfg.DstMemAddr = 0;
-	dmacfg.SrcMemAddr = &sen;
-	dmacfg.TransferSize = 1024;
-	dmacfg.TransferWidth = 0;
-	dmacfg.DMALLI = &LLISen;
-
-	LLISen.DstAddr = &sen;
-	LLISen.SrcAddr = LPC_DAC->DACR;
-	LLISen.Control = (1024 | (2<<19) | (2<<21) | (1<<26) & ~(1<<27) & ~(1<<31));
-	LLISen.NextLLI = &LLISen;
-
-	LLISen.DstAddr = &cuad;
-	LLISen.SrcAddr = LPC_DAC->DACR;
-	LLISen.Control = (1024 | (2<<19) | (2<<21) | (1<<26) & ~(1<<27) & ~(1<<31));
-	LLISen.NextLLI = &LLICuad;
-
-	LLISen.DstAddr = &triang;
-	LLISen.SrcAddr = LPC_DAC->DACR;
-	LLISen.Control = (1024 | (2<<19) | (2<<21) | (1<<26) & ~(1<<27) & ~(1<<31));
-	LLISen.NextLLI = &LLITriang;
-	GPDMA_Setup(&dmacfg);
-	GPDMA_ChannelCmd(0,ENABLE);
+void configADC(){
+	ADC_Init(LPC_ADC,200000);
+	ADC_ChannelCmd(LPC_ADC,0,ENABLE);
+	ADC_BurstCmd(LPC_ADC,ENABLE);
+	ADC_StartCmd(LPC_ADC,0);
+	ADC_IntConfig(LPC_ADC,0,ENABLE);
+	NVIC_EnableIRQ(ADC_IRQn);
 }
 
-void calcFrec(){
-//	if(((ADC_GlobalGetData(LPC_ADC)>>4)&0xFFF)>promf){
-
-	//}
-}
-
-int main(void) {
+int main(){
+	samples = 1000000/frecuencia;
+	if(samples > 1024){samples = 1024;}
 	generarTriangular();
 	generarCuadrada();
 	generarSenoidal();
-	DAC_Init(LPC_DAC);
-	//configDAC();
-	//configDMA();
+	confPin();
+	confDAC();
+	configDMA();
+	GPDMA_ChannelCmd(0, ENABLE);
 	while(1){
-		for(int i =0;i<1024;i++){
-			DAC_UpdateValue(LPC_DAC,sen[i]);
-		}
 	}
-
-    return 0 ;
+	return 0;
 }
+
+
