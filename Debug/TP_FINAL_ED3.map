@@ -5,15 +5,13 @@ C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC1
 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
                               ./src/main.o (ADC_Init)
 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
-                              ./src/main.o (CLKPWR_GetPCLK)
+                              ./src/main.o (CLKPWR_GetPCLKSEL)
 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
                               ./src/main.o (DAC_Init)
 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
                               ./src/main.o (GPDMA_Init)
 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
                               C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o) (check_failed)
-C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
-                              ./src/main.o (PINSEL_ConfigPin)
 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_timer.o)
                               ./src/main.o (TIM_Init)
 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(__weak__main.o)
@@ -61,21 +59,23 @@ Discarded input sections
  .group         0x00000000        0xc ./src/main.o
  .group         0x00000000        0xc ./src/main.o
  .group         0x00000000        0xc ./src/main.o
- .group         0x00000000        0xc ./src/main.o
- .group         0x00000000        0xc ./src/main.o
- .group         0x00000000        0xc ./src/main.o
  .text          0x00000000        0x0 ./src/main.o
  .data          0x00000000        0x0 ./src/main.o
  .bss           0x00000000        0x0 ./src/main.o
  .text.NVIC_EnableIRQ
                 0x00000000       0x30 ./src/main.o
- .text.delay    0x00000000       0x28 ./src/main.o
+ .text.configADC
+                0x00000000       0x44 ./src/main.o
+ .text.configDAC
+                0x00000000       0x30 ./src/main.o
  .text.configTimer1
                 0x00000000       0x30 ./src/main.o
  .text.configTimer0
                 0x00000000       0x60 ./src/main.o
- .text.configADC
-                0x00000000       0x44 ./src/main.o
+ .text.configDMA
+                0x00000000       0x98 ./src/main.o
+ .text.calcFrec
+                0x00000000        0xc ./src/main.o
  .debug_macro   0x00000000      0xaba ./src/main.o
  .group         0x00000000        0xc C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
  .group         0x00000000        0xc C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
@@ -91,6 +91,8 @@ Discarded input sections
  .bss           0x00000000        0x0 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
  .text.SystemCoreClockUpdate
                 0x00000000       0xb8 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .data.SystemCoreClock
+                0x00000000        0x4 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
  .debug_macro   0x00000000       0x10 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
  .debug_macro   0x00000000      0x12e C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
  .debug_macro   0x00000000      0x5b3 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
@@ -187,6 +189,12 @@ Discarded input sections
  .bss           0x00000000        0x0 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
  .text.CLKPWR_SetPCLKDiv
                 0x00000000       0x4c C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+ .text.CLKPWR_GetPCLKSEL
+                0x00000000       0x20 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+ .text.CLKPWR_GetPCLK
+                0x00000000       0x20 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+ .text.CLKPWR_ConfigPPWR
+                0x00000000       0x34 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
  .text.CLKPWR_Sleep
                 0x00000000       0x10 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
  .text.CLKPWR_DeepSleep
@@ -195,15 +203,34 @@ Discarded input sections
                 0x00000000       0x1c C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
  .text.CLKPWR_DeepPowerDown
                 0x00000000       0x1c C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+ .rodata.CSWTCH.5
+                0x00000000        0x4 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+ .debug_info    0x00000000      0x64b C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+ .debug_abbrev  0x00000000      0x208 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+ .debug_loclists
+                0x00000000      0x11e C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+ .debug_aranges
+                0x00000000       0x58 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+ .debug_rnglists
+                0x00000000       0x3d C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+ .debug_macro   0x00000000       0x8d C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
  .debug_macro   0x00000000      0xab4 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+ .debug_macro   0x00000000       0x1c C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
  .debug_macro   0x00000000       0x2e C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
  .debug_macro   0x00000000       0x10 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
  .debug_macro   0x00000000      0x12e C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
  .debug_macro   0x00000000      0x5b3 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
  .debug_macro   0x00000000       0x18 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
  .debug_macro   0x00000000      0x7af C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+ .debug_macro   0x00000000      0x2c7 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
  .debug_macro   0x00000000       0x63 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
  .debug_macro   0x00000000      0x2f1 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+ .debug_line    0x00000000      0x44e C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+ .debug_str     0x00000000     0x9b94 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+ .comment       0x00000000       0x46 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+ .debug_frame   0x00000000       0xa0 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+ .ARM.attributes
+                0x00000000       0x2d C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
  .group         0x00000000        0xc C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
  .group         0x00000000        0xc C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
  .group         0x00000000        0xc C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
@@ -220,10 +247,12 @@ Discarded input sections
  .text          0x00000000        0x0 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
  .data          0x00000000        0x0 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
  .bss           0x00000000        0x0 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
- .text.DAC_UpdateValue
-                0x00000000       0x2c C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
  .text.DAC_SetBias
                 0x00000000       0x30 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
+ .text.DAC_ConfigDAConverterControl
+                0x00000000       0x4c C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
+ .text.DAC_SetDMATimeOut
+                0x00000000       0x24 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
  .debug_macro   0x00000000      0xab4 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
  .debug_macro   0x00000000       0x1c C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
  .debug_macro   0x00000000       0x2e C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
@@ -252,12 +281,35 @@ Discarded input sections
  .text          0x00000000        0x0 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
  .data          0x00000000        0x0 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
  .bss           0x00000000        0x0 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+ .text.GPDMA_Init
+                0x00000000       0x38 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+ .text.GPDMA_Setup
+                0x00000000      0x1d4 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+ .text.GPDMA_ChannelCmd
+                0x00000000       0x1c C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
  .rodata.GPDMA_IntGetStatus.str1.1
                 0x00000000       0x10 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
  .text.GPDMA_IntGetStatus
                 0x00000000       0x74 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
  .text.GPDMA_ClearIntPending
                 0x00000000       0x54 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+ .rodata.GPDMA_LUTPerWid
+                0x00000000       0x18 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+ .rodata.GPDMA_LUTPerBurst
+                0x00000000       0x18 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+ .data.pGPDMACh
+                0x00000000       0x20 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+ .rodata.GPDMA_LUTPerAddr
+                0x00000000       0x60 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+ .debug_info    0x00000000     0x1063 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+ .debug_abbrev  0x00000000      0x2a2 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+ .debug_loclists
+                0x00000000      0x116 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+ .debug_aranges
+                0x00000000       0x40 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+ .debug_rnglists
+                0x00000000       0x2c C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+ .debug_macro   0x00000000       0xa9 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
  .debug_macro   0x00000000      0xab4 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
  .debug_macro   0x00000000       0x1c C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
  .debug_macro   0x00000000       0x2e C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
@@ -268,8 +320,15 @@ Discarded input sections
  .debug_macro   0x00000000      0x7af C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
  .debug_macro   0x00000000      0x2c7 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
  .debug_macro   0x00000000       0x63 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+ .debug_macro   0x00000000      0x2a8 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
  .debug_macro   0x00000000      0x2f1 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
  .debug_macro   0x00000000       0xdd C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+ .debug_line    0x00000000      0x638 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+ .debug_str     0x00000000     0xb3e5 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+ .comment       0x00000000       0x46 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+ .debug_frame   0x00000000       0x90 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+ .ARM.attributes
+                0x00000000       0x2d C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
  .group         0x00000000        0xc C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
  .group         0x00000000        0xc C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
  .group         0x00000000        0xc C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
@@ -283,35 +342,6 @@ Discarded input sections
  .debug_macro   0x00000000       0x10 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
  .debug_macro   0x00000000      0x12e C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
  .debug_macro   0x00000000      0x5b3 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
- .group         0x00000000        0xc C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .group         0x00000000        0xc C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .group         0x00000000        0xc C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .group         0x00000000        0xc C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .group         0x00000000        0xc C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .group         0x00000000        0xc C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .group         0x00000000        0xc C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .group         0x00000000        0xc C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .group         0x00000000        0xc C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .group         0x00000000        0xc C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .group         0x00000000        0xc C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .text          0x00000000        0x0 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .data          0x00000000        0x0 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .bss           0x00000000        0x0 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .text.PINSEL_ConfigTraceFunc
-                0x00000000       0x24 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .text.PINSEL_SetI2C0Pins
-                0x00000000       0x18 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .debug_macro   0x00000000      0xab4 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .debug_macro   0x00000000       0x1c C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .debug_macro   0x00000000       0x2e C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .debug_macro   0x00000000       0x10 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .debug_macro   0x00000000      0x12e C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .debug_macro   0x00000000      0x5b3 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .debug_macro   0x00000000       0x18 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .debug_macro   0x00000000      0x7af C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .debug_macro   0x00000000      0x2c7 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .debug_macro   0x00000000       0x63 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .debug_macro   0x00000000      0x13f C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
  .group         0x00000000        0xc C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_timer.o)
  .group         0x00000000        0xc C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_timer.o)
  .group         0x00000000        0xc C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_timer.o)
@@ -425,12 +455,16 @@ Discarded input sections
                 0x00000000        0xe c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
  .text.__aeabi_d2f
                 0x00000000       0x58 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
+ .text.__aeabi_d2uiz
+                0x00000000       0x34 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
  .text.__aeabi_d2lz
                 0x00000000       0x8a c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
  .text.__aeabi_d2ulz
                 0x00000000       0x5c c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
  .text.__bhs_ul2d
                 0x00000000       0x8a c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
+ .text.__aeabi_ui2d
+                0x00000000        0x8 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
  .text.__aeabi_l2d
                 0x00000000       0x1c c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
  .text.__aeabi_ul2d
@@ -480,7 +514,7 @@ END GROUP
                 0x20084000                __top_RamAHB32 = 0x20084000
                 0x20084000                __top_RAM2 = 0x20084000
 
-.text           0x00000000     0x1488
+.text           0x00000000      0xe98
  FILL mask 0xff
                 0x00000000                __vectors_start__ = ABSOLUTE (.)
  *(.isr_vector)
@@ -489,16 +523,16 @@ END GROUP
                 0x000000cc                . = ALIGN (0x4)
                 0x000000cc                __section_table_start = .
                 0x000000cc                __data_section_table = .
-                0x000000cc        0x4 LONG 0x1488 LOADADDR (.data)
+                0x000000cc        0x4 LONG 0xe98 LOADADDR (.data)
                 0x000000d0        0x4 LONG 0x10000000 ADDR (.data)
-                0x000000d4        0x4 LONG 0x28 SIZEOF (.data)
-                0x000000d8        0x4 LONG 0x1488 LOADADDR (.data_RAM2)
+                0x000000d4        0x4 LONG 0x4 SIZEOF (.data)
+                0x000000d8        0x4 LONG 0xe98 LOADADDR (.data_RAM2)
                 0x000000dc        0x4 LONG 0x2007c000 ADDR (.data_RAM2)
                 0x000000e0        0x4 LONG 0x0 SIZEOF (.data_RAM2)
                 0x000000e4                __data_section_table_end = .
                 0x000000e4                __bss_section_table = .
-                0x000000e4        0x4 LONG 0x10000028 ADDR (.bss)
-                0x000000e8        0x4 LONG 0x300c SIZEOF (.bss)
+                0x000000e4        0x4 LONG 0x10000004 ADDR (.bss)
+                0x000000e8        0x4 LONG 0x1804 SIZEOF (.bss)
                 0x000000ec        0x4 LONG 0x2007c000 ADDR (.bss_RAM2)
                 0x000000f0        0x4 LONG 0x0 SIZEOF (.bss_RAM2)
                 0x000000f4                __bss_section_table_end = .
@@ -564,150 +598,100 @@ END GROUP
                 0x00000001                ASSERT (! ((__CRP_WORD_START__ == __CRP_WORD_END__)), Linker CRP Enabled, but no CRP_WORD provided within application)
  *(.text*)
  .text.generarSenoidal
-                0x00000300       0xb8 ./src/main.o
+                0x00000300       0xa4 ./src/main.o
                 0x00000300                generarSenoidal
  .text.generarCuadrada
-                0x000003b8       0x64 ./src/main.o
-                0x000003b8                generarCuadrada
+                0x000003a4       0x58 ./src/main.o
+                0x000003a4                generarCuadrada
  .text.generarTriangular
-                0x0000041c       0xc4 ./src/main.o
-                0x0000041c                generarTriangular
- .text.confPin  0x000004e0       0x2a ./src/main.o
-                0x000004e0                confPin
- *fill*         0x0000050a        0x2 ff
- .text.confDAC  0x0000050c       0x60 ./src/main.o
-                0x0000050c                confDAC
- .text.configDMA
-                0x0000056c       0xa0 ./src/main.o
-                0x0000056c                configDMA
- .text.main     0x0000060c       0x54 ./src/main.o
-                0x0000060c                main
+                0x000003fc       0x58 ./src/main.o
+                0x000003fc                generarTriangular
+ .text.main     0x00000454       0x48 ./src/main.o
+                0x00000454                main
  .text.SystemInit
-                0x00000660       0xd8 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
-                0x00000660                SystemInit
- .text.CLKPWR_GetPCLKSEL
-                0x00000738       0x20 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
-                0x00000738                CLKPWR_GetPCLKSEL
- .text.CLKPWR_GetPCLK
-                0x00000758       0x20 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
-                0x00000758                CLKPWR_GetPCLK
- .text.CLKPWR_ConfigPPWR
-                0x00000778       0x34 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
-                0x00000778                CLKPWR_ConfigPPWR
+                0x0000049c       0xd8 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+                0x0000049c                SystemInit
  .text.DAC_Init
-                0x000007ac       0x24 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
-                0x000007ac                DAC_Init
- .text.DAC_ConfigDAConverterControl
-                0x000007d0       0x4c C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
-                0x000007d0                DAC_ConfigDAConverterControl
- .text.DAC_SetDMATimeOut
-                0x0000081c       0x24 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
-                0x0000081c                DAC_SetDMATimeOut
- .text.GPDMA_Init
-                0x00000840       0x38 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
-                0x00000840                GPDMA_Init
- .text.GPDMA_Setup
-                0x00000878      0x1d4 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
-                0x00000878                GPDMA_Setup
- .text.GPDMA_ChannelCmd
-                0x00000a4c       0x1c C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
-                0x00000a4c                GPDMA_ChannelCmd
+                0x00000574       0x24 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
+                0x00000574                DAC_Init
+ .text.DAC_UpdateValue
+                0x00000598       0x2c C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
+                0x00000598                DAC_UpdateValue
  .text.check_failed
-                0x00000a68        0x2 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
-                0x00000a68                check_failed
- *fill*         0x00000a6a        0x2 ff
- .text.PINSEL_ConfigPin
-                0x00000a6c       0x7c C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
-                0x00000a6c                PINSEL_ConfigPin
+                0x000005c4        0x2 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
+                0x000005c4                check_failed
  .text.__weak_main
-                0x00000ae8        0x4 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(__weak__main.o)
-                0x00000ae8                __weak_main
-                0x00000ae8                __main
- .text.sin      0x00000aec       0x38 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(sin.o)
-                0x00000aec                sin
- *fill*         0x00000b24        0x4 ff
- .text._sincos  0x00000b28      0x1fc c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(_sincos.o)
-                0x00000b28                _sincos
- .text.fabs     0x00000d24       0x1c c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(fabs.o)
-                0x00000d24                fabs
+                0x000005c6        0x4 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(__weak__main.o)
+                0x000005c6                __weak_main
+                0x000005c6                __main
+ .text.sin      0x000005ca       0x38 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(sin.o)
+                0x000005ca                sin
+ *fill*         0x00000602        0x6 ff
+ .text._sincos  0x00000608      0x1fc c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(_sincos.o)
+                0x00000608                _sincos
+ .text.fabs     0x00000804       0x1c c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(fabs.o)
+                0x00000804                fabs
  .text.__aeabi_dmul
-                0x00000d40       0xfc c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
-                0x00000d40                __aeabi_dmul
+                0x00000820       0xfc c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
+                0x00000820                __aeabi_dmul
  .text.__aeabi_ddiv
-                0x00000e3c      0x130 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
-                0x00000e3c                __aeabi_ddiv
+                0x0000091c      0x130 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
+                0x0000091c                __aeabi_ddiv
  .text.__aeabi_dsub
-                0x00000f6c      0x1b4 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
-                0x00000f6c                __aeabi_dsub
+                0x00000a4c      0x1b4 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
+                0x00000a4c                __aeabi_dsub
  .text.__aeabi_dadd
-                0x00001120      0x13c c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
-                0x00001120                __aeabi_dadd
+                0x00000c00      0x13c c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
+                0x00000c00                __aeabi_dadd
  .text.__aeabi_d2iz
-                0x0000125c       0x42 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
-                0x0000125c                __aeabi_d2iz
- .text.__aeabi_d2uiz
-                0x0000129e       0x34 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
-                0x0000129e                __aeabi_d2uiz
+                0x00000d3c       0x42 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
+                0x00000d3c                __aeabi_d2iz
  .text.__bhs_ui2d
-                0x000012d2       0x46 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
-                0x000012d2                __bhs_ui2d
+                0x00000d7e       0x46 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
+                0x00000d7e                __bhs_ui2d
  .text.__aeabi_i2d
-                0x00001318       0x10 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
-                0x00001318                __aeabi_i2d
- .text.__aeabi_ui2d
-                0x00001328        0x8 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
-                0x00001328                __aeabi_ui2d
+                0x00000dc4       0x10 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
+                0x00000dc4                __aeabi_i2d
  .text.__aeabi_dcmplt
-                0x00001330       0x5a c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
-                0x00001330                __aeabi_dcmplt
+                0x00000dd4       0x5a c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
+                0x00000dd4                __aeabi_dcmplt
  .text.__aeabi_dcmpge
-                0x0000138a       0x5a c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
-                0x0000138a                __aeabi_dcmpge
+                0x00000e2e       0x5a c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
+                0x00000e2e                __aeabi_dcmpge
  *(.rodata .rodata.* .constdata .constdata.*)
- .rodata.CSWTCH.5
-                0x000013e4        0x4 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
  .rodata.DAC_Init.str1.1
-                0x000013e8        0xe C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
- .rodata.GPDMA_LUTPerWid
-                0x000013f6       0x18 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
-                0x000013f6                GPDMA_LUTPerWid
- .rodata.GPDMA_LUTPerBurst
-                0x0000140e       0x18 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
-                0x0000140e                GPDMA_LUTPerBurst
- *fill*         0x00001426        0x2 ff
- .rodata.GPDMA_LUTPerAddr
-                0x00001428       0x60 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
-                0x00001428                GPDMA_LUTPerAddr
-                0x00001488                . = ALIGN (0x4)
+                0x00000e88        0xe C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
+                0x00000e98                . = ALIGN (0x4)
+ *fill*         0x00000e96        0x2 ff
 
-.glue_7         0x00001488        0x0
- .glue_7        0x00001488        0x0 linker stubs
+.glue_7         0x00000e98        0x0
+ .glue_7        0x00000e98        0x0 linker stubs
 
-.glue_7t        0x00001488        0x0
- .glue_7t       0x00001488        0x0 linker stubs
+.glue_7t        0x00000e98        0x0
+ .glue_7t       0x00000e98        0x0 linker stubs
 
-.vfp11_veneer   0x00001488        0x0
- .vfp11_veneer  0x00001488        0x0 linker stubs
+.vfp11_veneer   0x00000e98        0x0
+ .vfp11_veneer  0x00000e98        0x0 linker stubs
 
-.v4_bx          0x00001488        0x0
- .v4_bx         0x00001488        0x0 linker stubs
+.v4_bx          0x00000e98        0x0
+ .v4_bx         0x00000e98        0x0 linker stubs
 
-.iplt           0x00001488        0x0
- .iplt          0x00001488        0x0 ./src/cr_startup_lpc175x_6x.o
+.iplt           0x00000e98        0x0
+ .iplt          0x00000e98        0x0 ./src/cr_startup_lpc175x_6x.o
 
-.rel.dyn        0x00001488        0x0
- .rel.iplt      0x00001488        0x0 ./src/cr_startup_lpc175x_6x.o
+.rel.dyn        0x00000e98        0x0
+ .rel.iplt      0x00000e98        0x0 ./src/cr_startup_lpc175x_6x.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM.exidx      0x00001488        0x0
-                0x00001488                __exidx_start = .
+.ARM.exidx      0x00000e98        0x0
+                0x00000e98                __exidx_start = .
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x00001488                __exidx_end = .
-                0x00001488                _etext = .
+                0x00000e98                __exidx_end = .
+                0x00000e98                _etext = .
 
-.data_RAM2      0x2007c000        0x0 load address 0x00001488
+.data_RAM2      0x2007c000        0x0 load address 0x00000e98
  FILL mask 0xff
                 [!provide]                PROVIDE (__start_data_RAM2 = .)
                 [!provide]                PROVIDE (__start_data_RamAHB32 = .)
@@ -728,7 +712,7 @@ END GROUP
                 0x10000000                . = ALIGN (0x4)
                 0x10000000                _end_uninit_RESERVED = .
 
-.data           0x10000000       0x28 load address 0x00001488
+.data           0x10000000        0x4 load address 0x00000e98
  FILL mask 0xff
                 0x10000000                _data = .
                 [!provide]                PROVIDE (__start_data_RAM = .)
@@ -740,21 +724,16 @@ END GROUP
  *(RamFunction)
  *(.data*)
  .data.frecuencia
-                0x10000000        0x4 ./src/main.o
+                0x10000000        0x2 ./src/main.o
                 0x10000000                frecuencia
- .data.SystemCoreClock
-                0x10000004        0x4 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
-                0x10000004                SystemCoreClock
- .data.pGPDMACh
-                0x10000008       0x20 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
-                0x10000008                pGPDMACh
-                0x10000028                . = ALIGN (0x4)
-                0x10000028                _edata = .
+                0x10000004                . = ALIGN (0x4)
+ *fill*         0x10000002        0x2 ff
+                0x10000004                _edata = .
                 [!provide]                PROVIDE (__end_data_RAM = .)
                 [!provide]                PROVIDE (__end_data_RamLoc32 = .)
 
-.igot.plt       0x10000028        0x0 load address 0x000014b0
- .igot.plt      0x10000028        0x0 ./src/cr_startup_lpc175x_6x.o
+.igot.plt       0x10000004        0x0 load address 0x00000e9c
+ .igot.plt      0x10000004        0x0 ./src/cr_startup_lpc175x_6x.o
 
 .bss_RAM2       0x2007c000        0x0
                 [!provide]                PROVIDE (__start_bss_RAM2 = .)
@@ -767,26 +746,22 @@ END GROUP
                 [!provide]                PROVIDE (__end_bss_RAM2 = .)
                 [!provide]                PROVIDE (__end_bss_RamAHB32 = .)
 
-.bss            0x10000028     0x300c
-                0x10000028                _bss = .
+.bss            0x10000004     0x1804
+                0x10000004                _bss = .
                 [!provide]                PROVIDE (__start_bss_RAM = .)
                 [!provide]                PROVIDE (__start_bss_RamLoc32 = .)
  *(.bss*)
- .bss.sen       0x10000028     0x1000 ./src/main.o
-                0x10000028                sen
- .bss.cuad      0x10001028     0x1000 ./src/main.o
-                0x10001028                cuad
- .bss.triang    0x10002028     0x1000 ./src/main.o
-                0x10002028                triang
- .bss.samples   0x10003028        0x4 ./src/main.o
-                0x10003028                samples
- .bss.t         0x1000302c        0x4 ./src/main.o
-                0x1000302c                t
- .bss.errno     0x10003030        0x4 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(errno.o)
-                0x10003030                errno
+ .bss.sen       0x10000004      0x800 ./src/main.o
+                0x10000004                sen
+ .bss.cuad      0x10000804      0x800 ./src/main.o
+                0x10000804                cuad
+ .bss.triang    0x10001004      0x800 ./src/main.o
+                0x10001004                triang
+ .bss.errno     0x10001804        0x4 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(errno.o)
+                0x10001804                errno
  *(COMMON)
-                0x10003034                . = ALIGN (0x4)
-                0x10003034                _ebss = .
+                0x10001808                . = ALIGN (0x4)
+                0x10001808                _ebss = .
                 [!provide]                PROVIDE (__end_bss_RAM = .)
                 [!provide]                PROVIDE (__end_bss_RamLoc32 = .)
                 [!provide]                PROVIDE (end = .)
@@ -802,153 +777,117 @@ END GROUP
                 [!provide]                PROVIDE (__end_noinit_RAM2 = .)
                 [!provide]                PROVIDE (__end_noinit_RamAHB32 = .)
 
-.noinit         0x10003034        0x0
-                0x10003034                _noinit = .
+.noinit         0x10001808        0x0
+                0x10001808                _noinit = .
                 [!provide]                PROVIDE (__start_noinit_RAM = .)
                 [!provide]                PROVIDE (__start_noinit_RamLoc32 = .)
  *(.noinit*)
-                0x10003034                . = ALIGN (0x4)
-                0x10003034                _end_noinit = .
+                0x10001808                . = ALIGN (0x4)
+                0x10001808                _end_noinit = .
                 [!provide]                PROVIDE (__end_noinit_RAM = .)
                 [!provide]                PROVIDE (__end_noinit_RamLoc32 = .)
                 [!provide]                PROVIDE (_pvHeapStart = DEFINED (__user_heap_base)?__user_heap_base:.)
                 0x10008000                PROVIDE (_vStackTop = DEFINED (__user_stack_top)?__user_stack_top:(__top_RamLoc32 - 0x0))
                 0xefff749e                PROVIDE (__valid_user_code_checksum = (0x0 - ((((((_vStackTop + (ResetISR + 0x1)) + (NMI_Handler + 0x1)) + (HardFault_Handler + 0x1)) + (DEFINED (MemManage_Handler)?MemManage_Handler:0x0 + 0x1)) + (DEFINED (BusFault_Handler)?BusFault_Handler:0x0 + 0x1)) + (DEFINED (UsageFault_Handler)?UsageFault_Handler:0x0 + 0x1))))
                 0x00000000                _image_start = LOADADDR (.text)
-                0x000014b0                _image_end = (LOADADDR (.data) + SIZEOF (.data))
-                0x000014b0                _image_size = (_image_end - _image_start)
+                0x00000e9c                _image_end = (LOADADDR (.data) + SIZEOF (.data))
+                0x00000e9c                _image_size = (_image_end - _image_start)
 OUTPUT(TP_FINAL_ED3.axf elf32-littlearm)
 LOAD linker stubs
 
-.debug_info     0x00000000     0x32b1
+.debug_info     0x00000000     0x157d
  .debug_info    0x00000000      0x278 ./src/cr_startup_lpc175x_6x.o
  .debug_info    0x00000278       0x41 ./src/crp.o
- .debug_info    0x000002b9      0xce3 ./src/main.o
- .debug_info    0x00000f9c      0x302 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .debug_info    0x0000129e      0x64b C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
- .debug_info    0x000018e9      0x37e C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
- .debug_info    0x00001c67     0x1063 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
- .debug_info    0x00002cca       0xcf C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
- .debug_info    0x00002d99      0x518 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
+ .debug_info    0x000002b9      0xb75 ./src/main.o
+ .debug_info    0x00000e2e      0x302 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_info    0x00001130      0x37e C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
+ .debug_info    0x000014ae       0xcf C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
 
-.debug_abbrev   0x00000000      0xdd8
+.debug_abbrev   0x00000000      0x78f
  .debug_abbrev  0x00000000      0x152 ./src/cr_startup_lpc175x_6x.o
  .debug_abbrev  0x00000152       0x37 ./src/crp.o
- .debug_abbrev  0x00000189      0x2d1 ./src/main.o
- .debug_abbrev  0x0000045a      0x10d C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .debug_abbrev  0x00000567      0x208 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
- .debug_abbrev  0x0000076f      0x1a5 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
- .debug_abbrev  0x00000914      0x2a2 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
- .debug_abbrev  0x00000bb6       0x76 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
- .debug_abbrev  0x00000c2c      0x1ac C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
+ .debug_abbrev  0x00000189      0x2de ./src/main.o
+ .debug_abbrev  0x00000467      0x10d C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_abbrev  0x00000574      0x1a5 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
+ .debug_abbrev  0x00000719       0x76 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
 
-.debug_aranges  0x00000000      0x260
+.debug_aranges  0x00000000      0x190
  .debug_aranges
                 0x00000000       0x80 ./src/cr_startup_lpc175x_6x.o
  .debug_aranges
                 0x00000080       0x18 ./src/crp.o
  .debug_aranges
-                0x00000098       0x78 ./src/main.o
+                0x00000098       0x70 ./src/main.o
  .debug_aranges
-                0x00000110       0x28 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+                0x00000108       0x28 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
  .debug_aranges
-                0x00000138       0x58 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+                0x00000130       0x40 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
  .debug_aranges
-                0x00000190       0x40 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
- .debug_aranges
-                0x000001d0       0x40 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
- .debug_aranges
-                0x00000210       0x20 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
- .debug_aranges
-                0x00000230       0x30 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
+                0x00000170       0x20 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
 
 .debug_rnglists
-                0x00000000      0x1cd
+                0x00000000      0x111
  .debug_rnglists
                 0x00000000       0x5b ./src/cr_startup_lpc175x_6x.o
  .debug_rnglists
-                0x0000005b       0x58 ./src/main.o
+                0x0000005b       0x51 ./src/main.o
  .debug_rnglists
-                0x000000b3       0x1b C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+                0x000000ac       0x1b C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
  .debug_rnglists
-                0x000000ce       0x3d C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+                0x000000c7       0x37 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
  .debug_rnglists
-                0x0000010b       0x37 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
- .debug_rnglists
-                0x00000142       0x2c C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
- .debug_rnglists
-                0x0000016e       0x13 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
- .debug_rnglists
-                0x00000181       0x4c C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
+                0x000000fe       0x13 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
 
-.debug_macro    0x00000000     0x3e6f
+.debug_macro    0x00000000     0x3495
  .debug_macro   0x00000000       0x1d ./src/cr_startup_lpc175x_6x.o
  .debug_macro   0x0000001d      0xaba ./src/cr_startup_lpc175x_6x.o
  .debug_macro   0x00000ad7       0x1a ./src/crp.o
  .debug_macro   0x00000af1       0x34 ./src/crp.o
- .debug_macro   0x00000b25       0xe3 ./src/main.o
- .debug_macro   0x00000c08       0x1c ./src/main.o
- .debug_macro   0x00000c24       0x2e ./src/main.o
- .debug_macro   0x00000c52       0x10 ./src/main.o
- .debug_macro   0x00000c62      0x12e ./src/main.o
- .debug_macro   0x00000d90      0x5b3 ./src/main.o
- .debug_macro   0x00001343       0x18 ./src/main.o
- .debug_macro   0x0000135b      0x7af ./src/main.o
- .debug_macro   0x00001b0a      0x2c7 ./src/main.o
- .debug_macro   0x00001dd1       0x63 ./src/main.o
- .debug_macro   0x00001e34      0x13f ./src/main.o
- .debug_macro   0x00001f73       0x46 ./src/main.o
- .debug_macro   0x00001fb9       0x40 ./src/main.o
- .debug_macro   0x00001ff9       0xeb ./src/main.o
- .debug_macro   0x000020e4      0x2ae ./src/main.o
- .debug_macro   0x00002392       0xea ./src/main.o
- .debug_macro   0x0000247c      0x2f7 ./src/main.o
- .debug_macro   0x00002773       0x9a ./src/main.o
- .debug_macro   0x0000280d       0xc4 ./src/main.o
- .debug_macro   0x000028d1      0x12b C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .debug_macro   0x000029fc      0xab4 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .debug_macro   0x000034b0       0x8d C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
- .debug_macro   0x0000353d       0x1c C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
- .debug_macro   0x00003559      0x2c7 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
- .debug_macro   0x00003820       0xa9 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
- .debug_macro   0x000038c9       0x3a C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
- .debug_macro   0x00003903       0xa9 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
- .debug_macro   0x000039ac      0x2a8 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
- .debug_macro   0x00003c54       0x5a C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
- .debug_macro   0x00003cae       0x5d C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
- .debug_macro   0x00003d0b       0xd7 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
- .debug_macro   0x00003de2       0x8d C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
+ .debug_macro   0x00000b25       0xc4 ./src/main.o
+ .debug_macro   0x00000be9       0x1c ./src/main.o
+ .debug_macro   0x00000c05       0x2e ./src/main.o
+ .debug_macro   0x00000c33       0x10 ./src/main.o
+ .debug_macro   0x00000c43      0x12e ./src/main.o
+ .debug_macro   0x00000d71      0x5b3 ./src/main.o
+ .debug_macro   0x00001324       0x18 ./src/main.o
+ .debug_macro   0x0000133c      0x7af ./src/main.o
+ .debug_macro   0x00001aeb      0x2c7 ./src/main.o
+ .debug_macro   0x00001db2       0x63 ./src/main.o
+ .debug_macro   0x00001e15       0xe5 ./src/main.o
+ .debug_macro   0x00001efa       0x40 ./src/main.o
+ .debug_macro   0x00001f3a      0x2ae ./src/main.o
+ .debug_macro   0x000021e8       0xea ./src/main.o
+ .debug_macro   0x000022d2      0x2f1 ./src/main.o
+ .debug_macro   0x000025c3       0x82 ./src/main.o
+ .debug_macro   0x00002645      0x12b C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x00002770      0xab4 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x00003224       0xa9 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
+ .debug_macro   0x000032cd       0x3a C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
+ .debug_macro   0x00003307       0x5a C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
+ .debug_macro   0x00003361       0x5d C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
+ .debug_macro   0x000033be       0xd7 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
 
-.debug_line     0x00000000     0x2016
+.debug_line     0x00000000     0x11aa
  .debug_line    0x00000000      0x162 ./src/cr_startup_lpc175x_6x.o
  .debug_line    0x00000162       0xb1 ./src/crp.o
- .debug_line    0x00000213      0x5fb ./src/main.o
- .debug_line    0x0000080e      0x40a C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .debug_line    0x00000c18      0x44e C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
- .debug_line    0x00001066      0x41b C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
- .debug_line    0x00001481      0x638 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
- .debug_line    0x00001ab9      0x1f5 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
- .debug_line    0x00001cae      0x368 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
+ .debug_line    0x00000213      0x57d ./src/main.o
+ .debug_line    0x00000790      0x40a C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_line    0x00000b9a      0x41b C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
+ .debug_line    0x00000fb5      0x1f5 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
 
-.debug_str      0x00000000     0xe352
+.debug_str      0x00000000     0xd239
  .debug_str     0x00000000     0x2fd2 ./src/cr_startup_lpc175x_6x.o
                                0x2fe5 (size before relaxing)
  .debug_str     0x00002fd2       0xe9 ./src/crp.o
                                0x2ece (size before relaxing)
- .debug_str     0x000030bb     0xa44f ./src/main.o
-                               0xd2d8 (size before relaxing)
- .debug_str     0x0000d50a      0x514 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_str     0x000030bb     0x99e6 ./src/main.o
+                               0xc84e (size before relaxing)
+ .debug_str     0x0000caa1      0x514 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
                                0x899a (size before relaxing)
- .debug_str     0x0000da1e      0x11b C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
-                               0x9b94 (size before relaxing)
- .debug_str     0x0000db39      0x20f C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
+ .debug_str     0x0000cfb5      0x257 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
                                0x9d44 (size before relaxing)
- .debug_str     0x0000dd48      0x3dd C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
-                               0xb3e5 (size before relaxing)
- .debug_str     0x0000e125       0x2d C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
+ .debug_str     0x0000d20c       0x2d C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
                                0x47c1 (size before relaxing)
- .debug_str     0x0000e152      0x200 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
-                               0x8e0c (size before relaxing)
 
 .comment        0x00000000       0x45
  .comment       0x00000000       0x45 ./src/cr_startup_lpc175x_6x.o
@@ -956,11 +895,8 @@ LOAD linker stubs
  .comment       0x00000045       0x46 ./src/crp.o
  .comment       0x00000045       0x46 ./src/main.o
  .comment       0x00000045       0x46 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .comment       0x00000045       0x46 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
  .comment       0x00000045       0x46 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
- .comment       0x00000045       0x46 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
  .comment       0x00000045       0x46 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
- .comment       0x00000045       0x46 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
  .comment       0x00000045       0x46 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(__weak__main.o)
  .comment       0x00000045       0x46 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(sin.o)
  .comment       0x00000045       0x46 c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(_sincos.o)
@@ -979,50 +915,35 @@ LOAD linker stubs
  .ARM.attributes
                 0x00000087       0x2d C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
  .ARM.attributes
-                0x000000b4       0x2d C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+                0x000000b4       0x2d C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
  .ARM.attributes
-                0x000000e1       0x2d C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
+                0x000000e1       0x2d C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
  .ARM.attributes
-                0x0000010e       0x2d C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+                0x0000010e       0x2d c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(__weak__main.o)
  .ARM.attributes
-                0x0000013b       0x2d C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
+                0x0000013b       0x2d c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(sin.o)
  .ARM.attributes
-                0x00000168       0x2d C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
+                0x00000168       0x2d c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(_sincos.o)
  .ARM.attributes
-                0x00000195       0x2d c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(__weak__main.o)
+                0x00000195       0x2d c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(errno.o)
  .ARM.attributes
-                0x000001c2       0x2d c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(sin.o)
+                0x000001c2       0x2d c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(fabs.o)
  .ARM.attributes
-                0x000001ef       0x2d c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(_sincos.o)
- .ARM.attributes
-                0x0000021c       0x2d c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(errno.o)
- .ARM.attributes
-                0x00000249       0x2d c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(fabs.o)
- .ARM.attributes
-                0x00000276       0x2d c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
+                0x000001ef       0x2d c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
 
-.debug_frame    0x00000000      0x5a0
+.debug_frame    0x00000000      0x3f0
  .debug_frame   0x00000000      0x170 ./src/cr_startup_lpc175x_6x.o
- .debug_frame   0x00000170      0x1c4 ./src/main.o
- .debug_frame   0x00000334       0x38 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .debug_frame   0x0000036c       0xa0 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
- .debug_frame   0x0000040c       0x94 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
- .debug_frame   0x000004a0       0x90 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
- .debug_frame   0x00000530       0x20 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
- .debug_frame   0x00000550       0x50 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
+ .debug_frame   0x00000170      0x194 ./src/main.o
+ .debug_frame   0x00000304       0x38 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_frame   0x0000033c       0x94 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
+ .debug_frame   0x000003d0       0x20 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
 
 .debug_loclists
-                0x00000000      0x46c
+                0x00000000      0x176
  .debug_loclists
-                0x00000000      0x11e C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+                0x00000000      0x154 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
  .debug_loclists
-                0x0000011e      0x154 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
- .debug_loclists
-                0x00000272      0x116 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
- .debug_loclists
-                0x00000388       0x22 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
- .debug_loclists
-                0x000003aa       0xc2 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
+                0x00000154       0x22 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
 
 Cross Reference Table
 
@@ -1059,21 +980,21 @@ CLKPWR_DeepSleep                                  C:\WorkspaceTPFINAL\CMSISv2p00
 CLKPWR_GetPCLK                                    C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
                                                   C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_timer.o)
                                                   C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
-                                                  ./src/main.o
 CLKPWR_GetPCLKSEL                                 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+                                                  ./src/main.o
 CLKPWR_PowerDown                                  C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
 CLKPWR_SetPCLKDiv                                 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
                                                   C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_timer.o)
 CLKPWR_Sleep                                      C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
 CRP_WORD                                          ./src/crp.o
 DAC_ConfigDAConverterControl                      C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
-                                                  ./src/main.o
 DAC_Init                                          C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
                                                   ./src/main.o
 DAC_SetBias                                       C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
 DAC_SetDMATimeOut                                 C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
                                                   ./src/main.o
 DAC_UpdateValue                                   C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
+                                                  ./src/main.o
 DMA_IRQHandler                                    ./src/cr_startup_lpc175x_6x.o
 DebugMon_Handler                                  ./src/cr_startup_lpc175x_6x.o
 EINT0_IRQHandler                                  ./src/cr_startup_lpc175x_6x.o
@@ -1101,10 +1022,6 @@ IntDefaultHandler                                 ./src/cr_startup_lpc175x_6x.o
 MCPWM_IRQHandler                                  ./src/cr_startup_lpc175x_6x.o
 MemManage_Handler                                 ./src/cr_startup_lpc175x_6x.o
 NMI_Handler                                       ./src/cr_startup_lpc175x_6x.o
-PINSEL_ConfigPin                                  C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
-                                                  ./src/main.o
-PINSEL_ConfigTraceFunc                            C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
-PINSEL_SetI2C0Pins                                C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
 PLL0_IRQHandler                                   ./src/cr_startup_lpc175x_6x.o
 PLL1_IRQHandler                                   ./src/cr_startup_lpc175x_6x.o
 PWM1_IRQHandler                                   ./src/cr_startup_lpc175x_6x.o
@@ -1159,11 +1076,9 @@ __aeabi_d2iz                                      c:/nxp/mcuxpressoide_11.8.0_11
                                                   c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(_sincos.o)
 __aeabi_d2lz                                      c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
 __aeabi_d2uiz                                     c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
-                                                  ./src/main.o
 __aeabi_d2ulz                                     c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
 __aeabi_dadd                                      c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
                                                   c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(_sincos.o)
-                                                  ./src/main.o
 __aeabi_dcmpeq                                    c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
 __aeabi_dcmpge                                    c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
                                                   c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(_sincos.o)
@@ -1192,7 +1107,6 @@ __aeabi_l2d                                       c:/nxp/mcuxpressoide_11.8.0_11
 __aeabi_ldivmod                                   c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(division_64.o)
                                                   C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
 __aeabi_ui2d                                      c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
-                                                  ./src/main.o
 __aeabi_ul2d                                      c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(double.o)
 __aeabi_uldivmod                                  c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/thumb/v7-m/nofp\libcr_eabihelpers.a(division_64.o)
                                                   C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_timer.o)
@@ -1211,20 +1125,19 @@ _sincos                                           c:/nxp/mcuxpressoide_11.8.0_11
                                                   c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(sin.o)
 _vStackTop                                        ./src/cr_startup_lpc175x_6x.o
 bss_init                                          ./src/cr_startup_lpc175x_6x.o
+calcFrec                                          ./src/main.o
 check_failed                                      C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
                                                   C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_timer.o)
                                                   C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
                                                   C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
                                                   C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
-confDAC                                           ./src/main.o
-confPin                                           ./src/main.o
 configADC                                         ./src/main.o
+configDAC                                         ./src/main.o
 configDMA                                         ./src/main.o
 configTimer0                                      ./src/main.o
 configTimer1                                      ./src/main.o
 cuad                                              ./src/main.o
 data_init                                         ./src/cr_startup_lpc175x_6x.o
-delay                                             ./src/main.o
 errno                                             c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(errno.o)
                                                   c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(_sincos.o)
 fabs                                              c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(fabs.o)
@@ -1237,9 +1150,7 @@ generarTriangular                                 ./src/main.o
 main                                              ./src/main.o
                                                   c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(__weak__main.o)
 pGPDMACh                                          C:\WorkspaceTPFINAL\CMSISv2p00_LPC17xx\Debug\libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
-samples                                           ./src/main.o
 sen                                               ./src/main.o
 sin                                               c:/nxp/mcuxpressoide_11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_c.a(sin.o)
                                                   ./src/main.o
-t                                                 ./src/main.o
 triang                                            ./src/main.o
